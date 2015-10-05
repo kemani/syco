@@ -43,7 +43,6 @@ def print_killmessage():
     print " "
     print "Usage: syco install-haproxy <environment>"
     print ""
-    print HAPROXY_ENV
     sys.exit(0)
 
 def print_environments():
@@ -60,7 +59,7 @@ def get_environments():
     return environments
 
 HAPROXY_CONF_DIR = "/etc/haproxy/"
-ACCEPTED_HAPROXY_ENV = None 
+ACCEPTED_HAPROXY_ENV = None
 
 def build_commands(commands):
     '''
