@@ -1,4 +1,4 @@
-/var/log/httpd/*.log
+/var/log/httpd/*log
 /var/log/modsec_audit.log
 {
     rotate 10
