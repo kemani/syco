@@ -80,7 +80,6 @@ def install_sssd(args):
 def uninstall_sssd(args):
     app.print_verbose("Uninstall sssd script-version: %d" % SCRIPT_VERSION)
     x("yum -y remove openldap-clients sssd")
-    x("rm -rf /var/lib/sss/")
 
     iptables.del_ldap_chain()
     iptables.save()
