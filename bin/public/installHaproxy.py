@@ -66,7 +66,7 @@ def install_haproxy(args):
     setup_global_vars()
 
     # Validate all command line parameters.
-    if len(sys.argv) != 4:
+    if len(sys.argv) < 4:
         print_killmessage()
 
     haproxy_env()
@@ -146,7 +146,8 @@ def _configure_haproxy():
 
     scopen.scOpen(HAPROXY_CONF).replace("${ENV_IP}", get_ip_address('eth1'))
     _configure_haproxy_state()
-    _configure_sps_password()
+    if haproxy_env() == "farepayment":
+        _configure_sps_password()
 
     _chkconfig("haproxy", "on")
     _service("haproxy", "restart")
@@ -196,7 +197,7 @@ def uninstall_haproxy(args):
     setup_global_vars()
 
     # Validate all command line parameters.
-    if len(sys.argv) != 4:
+    if len(sys.argv) != 3:
         print_killmessage()
 
     haproxy_env()
