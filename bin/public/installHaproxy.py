@@ -40,6 +40,8 @@ HAPROXY_CONF_DIR = "/etc/haproxy/"
 HAPROXY_CONF = "/etc/haproxy/haproxy.cfg"
 ACCEPTED_STATES = ['active', 'backup']
 
+CERT_SERVER = CERT_SERVER_PATH = CERT_COPY_TO_PATH = SYCO_PLUGIN_PATH = None
+
 
 def build_commands(commands):
     """
@@ -61,11 +63,7 @@ def install_haproxy(args):
     version_obj = version.Version("InstallHaproxy", script_version)
     version_obj.check_executed()
 
-    global CERT_SERVER, CERT_SERVER_PATH, CERT_COPY_TO_PATH, SYCO_PLUGIN_PATH
-    CERT_SERVER = config.general.get_cert_server_ip()
-    CERT_SERVER_PATH = config.general.get_option('haproxy.remote_cert_path')
-    CERT_COPY_TO_PATH = config.general.get_option('haproxy.local_cert_path')
-    SYCO_PLUGIN_PATH = app.get_syco_plugin_paths("/var/haproxy/").next()
+    setup_global_vars()
 
     # Validate all command line parameters.
     if len(sys.argv) != 4:
@@ -81,6 +79,15 @@ def install_haproxy(args):
     _configure_haproxy()
 
     version_obj.mark_executed()
+
+
+def setup_global_vars():
+    """Initialize global variables from config files"""
+    global CERT_SERVER, CERT_SERVER_PATH, CERT_COPY_TO_PATH, SYCO_PLUGIN_PATH
+    CERT_SERVER = config.general.get_cert_server_ip()
+    CERT_SERVER_PATH = config.general.get_option('haproxy.remote_cert_path')
+    CERT_COPY_TO_PATH = config.general.get_option('haproxy.local_cert_path')
+    SYCO_PLUGIN_PATH = app.get_syco_plugin_paths("/var/haproxy/").next()
 
 
 def haproxy_env():
@@ -185,6 +192,8 @@ def uninstall_haproxy(args):
     Remove HA Proxy from the server.
     """
     app.print_verbose("Uninstall HA Proxy")
+    
+    setup_global_vars()
 
     # Validate all command line parameters.
     if len(sys.argv) != 4:
