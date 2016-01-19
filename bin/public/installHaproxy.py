@@ -192,7 +192,7 @@ def uninstall_haproxy(args):
     Remove HA Proxy from the server.
     """
     app.print_verbose("Uninstall HA Proxy")
-    
+
     setup_global_vars()
 
     # Validate all command line parameters.
