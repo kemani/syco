@@ -72,6 +72,7 @@ def _configure_squid():
     x("mkdir -p %s/services" % (SQUID_CONF_DIR))
     x("cp %s/acl/* %sacl/" % (SYCO_PLUGIN_PATH, SQUID_CONF_DIR))
     x("cp %s/services/* %sservices/" % (SYCO_PLUGIN_PATH, SQUID_CONF_DIR))
+    x("cp -f %s/logrotate/squid /etc/logrotate.d/" % (SYCO_PLUGIN_PATH))
 
     env_ip = config.host(net.get_hostname()).get_front_ip()
     if config.general.is_back_enabled():
