@@ -140,6 +140,11 @@ def _configure_haproxy():
     scopen.scOpen(HAPROXY_CONF).replace("${ENV_IP}", get_ip_address('eth1'))
     _configure_haproxy_state()
 
+    if haproxy_env() == "farepayment":
+        from installFarepayment import _configure_sps_password
+	from installFarepayment import get_haproxy_sps_ping_password 
+        _configure_sps_password()
+
     _chkconfig("haproxy", "on")
     _service("haproxy", "restart")
 
