@@ -159,9 +159,6 @@ def get_redis_production_password():
   '''A user password for the redis service.'''
   return _get_password("redis", "production")
 
-def get_haproxy_sps_ping_password():
-  '''A user password for the haproxy ping.'''
-  return _get_password("haproxy-sps-ping", "haproxy")
 
 def init_mysql_passwords():
     get_mysql_root_password()
